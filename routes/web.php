@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\PharmacistController;
+use App\Http\Controllers\SalesmanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get( '/', function () {
-    return view( 'index' );
-} );
+Route::get( "/", [DashboardController::class, "dashboard"] )->name( "dashboard" );
+Route::get( "/login", [MainController::class, "login"] )->name( "login" );
 
-Route::view( '/login', 'login' );
+Route::get( "/managers", [ManagerController::class, "allManagers"] )->name( "managers" );
+Route::get( "/addmanagers", [ManagerController::class, "addManager"] )->name( "managers.add" );
+Route::get( "/updatemanager", [ManagerController::class, "updateManager"] )->name( "managers.update" );
+
+Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists" );
+Route::get( "/addpharmacists", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
+Route::get( "/updatepharmacist", [PharmacistController::class, "updatePharmacist"] )->name( "pharmacists.update" );
+
+Route::get( "/salesmen", [SalesmanController::class, "allSalesmen"] )->name( "salesmen" );
+Route::get( "/addsalesmen", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
+Route::get( "/updatepharmacist", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
