@@ -1,35 +1,35 @@
 <section id="sideber" class="sideber">
     <ul class="sideber__ber">
         <h2 class="sideber__panel">Pharmacy Management System</h2>
-        <li id="left" class="sideber__item active">
+        <li id="left" class="sideber__item @if (request()->routeIs('dashboard')) active @endif">
             <a href="{{ route('dashboard') }}"><i id="left" class="fas fa-tachometer-alt"></i>Dashboard</a>
         </li>
 
         <!-- Only For Admin -->
-        <li id="left" class="sideber__item sideber__item--modify active">
+        <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('managers.add')) active @endif">
             <a href="{{ route('managers.add') }}"><i id="left" class="fas fa-user-plus"></i></i>Add Manager</a>
         </li>
 
-        <li id="left" class="sideber__item">
-            <a href="{{ route('managers') }}"><i id="left" class="fas fa-user"></i>All Manager</a>
+        <li id="left" class="sideber__item @if (request()->routeIs('managers.show')) active @endif">
+            <a href="{{ route('managers.show') }}"><i id="left" class="fas fa-user"></i>All Manager</a>
         </li>
 
         <!-- For Admin, Manager -->
-        <li id="left" class="sideber__item sideber__item--modify">
+        <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('pharmacists.add')) active @endif">
             <a href="{{ route('pharmacists.add') }}"><i id="left" class="fas fa-user-plus"></i></i>Add
                 Pharmacist</a>
         </li>
 
-        <li id="left" class="sideber__item">
+        <li id="left" class="sideber__item @if (request()->routeIs('pharmacists')) active @endif">
             <a href="{{ route('pharmacists') }}"><i id="left" class="fas fa-user"></i>All Pharmacist</a>
         </li>
 
         <!-- For Admin, Manager, Pharmacist-->
-        <li id="left" class="sideber__item sideber__item--modify">
+        <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('salesmen.add')) active @endif">
             <a href="{{ route('salesmen.add') }}"><i id="left" class="fas fa-user-plus"></i>Add Salesman</a>
         </li>
 
-        <li id="left" class="sideber__item">
+        <li id="left" class="sideber__item @if (request()->routeIs('salesmen')) active @endif">
             <a href="{{ route('salesmen') }}"><i id="left" class="fas fa-user"></i>All Salesman</a>
         </li>
     </ul>

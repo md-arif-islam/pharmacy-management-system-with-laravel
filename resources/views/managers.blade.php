@@ -30,30 +30,33 @@
                         </thead>
                         <tbody>
 
+                            @foreach ($managers as $manager)
+                                <tr>
+                                    <td>
+                                        <center><img class="rounded-circle" width="40" height="40"
+                                                src="assets/img/avatar.png" alt=""></center>
+                                    </td>
+                                    <td>
+                                        {{ $manager->first_name . ' ' . $manager->last_name }}
+                                    <td>
+                                        {{ $manager->email }}
+                                    </td>
+                                    <td>
+                                        {{ $manager->phone }}
+                                    </td>
+                                    <!-- Only For Admin -->
+                                    <td>
+                                        <a href='{{ route('managers.edit', ['manager' => $manager->id]) }}'><i
+                                                class='fas fa-edit'></i></a>
+                                    </td>
+                                    <td>
+                                        <a class='delete'
+                                            href='{{ route('managers.delete', ['manager' => $manager->id]) }}'><i
+                                                class='fas fa-trash'></i></a>
+                                    </td>
 
-
-                            <tr>
-                                <td>
-                                    <center><img class="rounded-circle" width="40" height="40"
-                                            src="assets/img/avatar.png" alt=""></center>
-                                </td>
-                                <td>
-                                    MD Arif Islam
-                                <td>
-                                    arifislamarif344@gmail.com
-                                </td>
-                                <td>
-                                    01704307597
-                                </td>
-                                <!-- Only For Admin -->
-                                <td>
-                                    <a href='{{ route('managers.update') }}'><i class='fas fa-edit'></i></a>
-                                </td>
-                                <td>
-                                    <a class='delete' href='#'><i class='fas fa-trash'></i></a>"
-                                </td>
-
-                            </tr>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>

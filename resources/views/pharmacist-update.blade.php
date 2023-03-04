@@ -23,14 +23,14 @@
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-user-circle"></i>
-                                    <input type="text" name="fname" placeholder="First name" value="Arif"
+                                    <input type="text" name="first_name" placeholder="First name" value="Arif"
                                         required>
                                 </label>
                             </div>
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-user-circle"></i>
-                                    <input type="text" name="lname" placeholder="Last Name" value="Islam"
+                                    <input type="text" name="last_name" placeholder="Last Name" value="Islam"
                                         required>
                                 </label>
                             </div>

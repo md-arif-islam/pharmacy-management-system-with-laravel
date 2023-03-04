@@ -25,13 +25,13 @@
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-user-circle"></i>
-                                    <input type="text" name="fname" placeholder="First name" required>
+                                    <input type="text" name="first_name" placeholder="First name" required>
                                 </label>
                             </div>
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-user-circle"></i>
-                                    <input type="text" name="lname" placeholder="Last Name" required>
+                                    <input type="text" name="last_name" placeholder="Last Name" required>
                                 </label>
                             </div>
                             <div class="col col-12">
