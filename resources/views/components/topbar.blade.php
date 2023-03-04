@@ -10,12 +10,19 @@
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                MD Arif Islam
+                @php
+                    $guard = session()->get('guard');
+                @endphp
+                @if ($guard)
+                    @auth($guard)
+                        {{ auth($guard)->user()->first_name }} {{ auth($guard)->user()->last_name }}
+                    @endauth
+                @endif
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                 <a class="dropdown-item" href="">Profile</a>
-                <a class="dropdown-item" href="#">Log Out</a>
+                <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
             </div>
         </div>
     </div>

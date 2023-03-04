@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Pharmacist extends Model
-{
-    use HasFactory;
+class Pharmacist extends Authenticatable {
+    // ...
 }

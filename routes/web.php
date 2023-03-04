@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PharmacistController;
 use App\Http\Controllers\SalesmanController;
@@ -19,10 +19,13 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get( "/", [DashboardController::class, "dashboard"] )->name( "dashboard" );
-Route::get( "/login", [MainController::class, "login"] )->name( "login" );
+Route::get( "/login", [LoginController::class, "login"] )->name( "login" );
+Route::get( "/logout", [LoginController::class, "logout"] )->name( "logout" );
+Route::post( "/authlogin", [LoginController::class, "authLogin"] )->name( "login.auth" );
 
 Route::get( "/managers", [ManagerController::class, "allManagers"] )->name( "managers" );
 Route::get( "/addmanagers", [ManagerController::class, "addManager"] )->name( "managers.add" );
+Route::post( "/createmanager", [ManagerController::class, "createManager"] )->name( "managers.create" );
 Route::get( "/updatemanager", [ManagerController::class, "updateManager"] )->name( "managers.update" );
 
 Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists" );

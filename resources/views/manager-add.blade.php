@@ -19,7 +19,8 @@
             <div class="addManager">
                 <div class="main__form">
                     <div class="main__form--title text-center">Add New Manager</div>
-                    <form action="#" method="POST">
+                    <form action="{{ route('managers.create') }}" method="POST">
+                        @csrf
                         <div class="form-row">
                             <div class="col col-12">
                                 <label class="input">
@@ -53,7 +54,6 @@
                                     <i id="pwd" class="fas fa-eye right"></i>
                                 </label>
                             </div>
-                            <input type="hidden" name="action" value="addManager">
                             <div class="col col-12">
                                 <input type="submit" value="Submit">
                             </div>

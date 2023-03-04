@@ -20,7 +20,8 @@
         <div class="container">
             <div class="main__form">
                 <div class="main__form--title text-center">Log In</div>
-                <form action="login_core.php" method="GET">
+                <form action="{{ route('login.auth') }}" method="POST">
+                    @csrf
                     <div class="form-row">
                         <div class="col col-12">
                             <label class="input">
@@ -35,21 +36,12 @@
                                 <i id="pwd" class="fas fa-eye right"></i>
                             </label>
                         </div>
-                        <div class="col col-12">
-                            <label class="input">
-                                <i id="left" class="fas fa-male left"></i>
-                                <select name="role" id="Role">
-                                    <option value="admins">Admin</option>
-                                    <option value="managers">Manager</option>
-                                    <option value="pharmacists">Pharmacist</option>
-                                    <option value="salesmans">Salesman</option>
-                                </select>
-                            </label>
-                        </div>
-                        <input type="hidden" name="action" value="login" />
-                        <h5 class="text-center" style="color: red">
-                            Email, Password & Role Doesn't match Or Something is Wrong
-                        </h5>
+
+                        @error('message')
+                            <h5 class="text-center" style="color: red">
+                                {{ $message }}
+                            </h5>
+                        @enderror
 
                         <div class="col col-12">
                             <input type="submit" value="Submit" />
