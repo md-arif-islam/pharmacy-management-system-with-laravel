@@ -17,7 +17,8 @@
             <div class="addPharmacist">
                 <div class="main__form">
                     <div class="main__form--title text-center">Add New Pharmacist</div>
-                    <form action="#" method="POST">
+                    <form action="{{ route('pharmacists.create') }}" method="POST">
+                        @csrf
                         <div class="form-row">
                             <div class="col col-12">
                                 <label class="input">

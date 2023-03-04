@@ -29,31 +29,44 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if ($pharmacists->count() < 1)
+                                <td>
+                                    <center>No data abailable</center>
+                                </td>
+                            @endif
+                            @foreach ($pharmacists as $pharmacist)
+                                <tr>
+                                    <td>
+                                        <center><img class="rounded-circle" width="40" height="40"
+                                                src="{{ asset('assets/img/avatar.png') }}" alt=""></center>
+                                    </td>
+                                    <td>
+                                        {{ $pharmacist->first_name . ' ' . $pharmacist->last_name }}
+                                    <td>
+                                        {{ $pharmacist->email }}
+                                    </td>
+                                    <td>
+                                        {{ $pharmacist->phone }}
+                                    </td>
+                                    <!-- Only For Admin -->
+                                    <td>
+                                        <a href='{{ route('pharmacists.edit', ['pharmacist' => $pharmacist->id]) }}'><i
+                                                class='fas fa-edit'></i></a>
+                                    </td>
+
+                                    <td>
+                                        <form
+                                            action="{{ route('pharmacists.delete', ['pharmacist' => $pharmacist->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="delete"><i class='fas fa-trash'></i></button>
+                                        </form>
+                                    </td>
 
 
-
-                            <tr>
-                                <td>
-                                    <center><img class="rounded-circle" width="40" height="40"
-                                            src="assets/img/avatar.png" alt=""></center>
-                                </td>
-                                <td>
-                                    MD Arif Islam
-                                <td>
-                                    arifislamarif344@gmail.com
-                                </td>
-                                <td>
-                                    01704307597
-                                </td>
-                                <!-- Only For Admin -->
-                                <td>
-                                    <a href='#'><i class='fas fa-edit'></i></a>
-                                </td>
-                                <td>
-                                    <a class='delete' href='#'><i class='fas fa-trash'></i></a>"
-                                </td>
-
-                            </tr>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>

@@ -19,7 +19,8 @@
             <div class="addSalesman">
                 <div class="main__form">
                     <div class="main__form--title text-center">Add New Salesman</div>
-                    <form action="#" method="POST">
+                    <form action="{{ route('salesmen.create') }}" method="POST">
+                        @csrf
                         <div class="form-row">
                             <div class="col col-12">
                                 <label class="input">
@@ -50,9 +51,9 @@
                                     <i id="left" class="fas fa-key"></i>
                                     <input id="pwdinput" type="password" name="password" placeholder="Password"
                                         required>
+                                    <i id="pwd" class="fas fa-eye right"></i>
                                 </label>
                             </div>
-                            <input type="hidden" name="action" value="addSalesman">
                             <div class="col col-12">
                                 <input type="submit" value="Submit">
                             </div>

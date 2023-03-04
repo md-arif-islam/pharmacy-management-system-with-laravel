@@ -32,29 +32,36 @@
                         <tbody>
 
 
+                            @foreach ($salesmen as $salesman)
+                                <tr>
+                                    <td>
+                                        <center><img class="rounded-circle" width="40" height="40"
+                                                src="{{ asset('assets/img/avatar.png') }}" alt=""></center>
+                                    </td>
+                                    <td>
+                                        {{ $salesman->first_name . ' ' . $salesman->last_name }}
+                                    <td>
+                                        {{ $salesman->email }}
+                                    </td>
+                                    <td>
+                                        {{ $salesman->phone }}
+                                    </td>
+                                    <!-- Only For Admin -->
+                                    <td>
+                                        <a href='{{ route('salesmen.edit', ['salesman' => $salesman->id]) }}'><i
+                                                class='fas fa-edit'></i></a>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('salesmen.delete', ['salesman' => $salesman->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="delete"><i class='fas fa-trash'></i></button>
+                                        </form>
+                                    </td>
 
-                            <tr>
-                                <td>
-                                    <center><img class="rounded-circle" width="40" height="40"
-                                            src="assets/img/avatar.png" alt=""></center>
-                                </td>
-                                <td>
-                                    MD Arif Islam
-                                <td>
-                                    arifislamarif344@gmail.com
-                                </td>
-                                <td>
-                                    01704307597
-                                </td>
-                                <!-- Only For Admin -->
-                                <td>
-                                    <a href='#'><i class='fas fa-edit'></i></a>
-                                </td>
-                                <td>
-                                    <a class='delete' href='#'><i class='fas fa-trash'></i></a>"
-                                </td>
-
-                            </tr>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>

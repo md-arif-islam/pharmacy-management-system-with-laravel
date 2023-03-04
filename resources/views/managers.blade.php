@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>
                                         <center><img class="rounded-circle" width="40" height="40"
-                                                src="assets/img/avatar.png" alt=""></center>
+                                                src="{{ asset('assets/img/avatar.png') }}" alt=""></center>
                                     </td>
                                     <td>
                                         {{ $manager->first_name . ' ' . $manager->last_name }}
@@ -50,9 +50,12 @@
                                                 class='fas fa-edit'></i></a>
                                     </td>
                                     <td>
-                                        <a class='delete'
-                                            href='{{ route('managers.delete', ['manager' => $manager->id]) }}'><i
-                                                class='fas fa-trash'></i></a>
+                                        <form action="{{ route('managers.delete', ['manager' => $manager->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="delete"><i class='fas fa-trash'></i></button>
+                                        </form>
                                     </td>
 
                                 </tr>

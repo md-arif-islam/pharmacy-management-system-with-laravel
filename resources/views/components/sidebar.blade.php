@@ -20,8 +20,8 @@
                 Pharmacist</a>
         </li>
 
-        <li id="left" class="sideber__item @if (request()->routeIs('pharmacists')) active @endif">
-            <a href="{{ route('pharmacists') }}"><i id="left" class="fas fa-user"></i>All Pharmacist</a>
+        <li id="left" class="sideber__item @if (request()->routeIs('pharmacists.show')) active @endif">
+            <a href="{{ route('pharmacists.show') }}"><i id="left" class="fas fa-user"></i>All Pharmacist</a>
         </li>
 
         <!-- For Admin, Manager, Pharmacist-->
@@ -29,8 +29,8 @@
             <a href="{{ route('salesmen.add') }}"><i id="left" class="fas fa-user-plus"></i>Add Salesman</a>
         </li>
 
-        <li id="left" class="sideber__item @if (request()->routeIs('salesmen')) active @endif">
-            <a href="{{ route('salesmen') }}"><i id="left" class="fas fa-user"></i>All Salesman</a>
+        <li id="left" class="sideber__item @if (request()->routeIs('salesmen.show')) active @endif">
+            <a href="{{ route('salesmen.show') }}"><i id="left" class="fas fa-user"></i>All Salesman</a>
         </li>
     </ul>
     {{-- <footer class="text-center"><span>MD Arif Islam</span><br>©2020 PMS All right reserved.</footer> --}}

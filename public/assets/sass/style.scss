@@ -20,6 +20,12 @@ button:active .btn:active .btn.active {
     box-shadow: none !important;
 }
 
+button.delete {
+    border: none !important;
+    color: #007bff;
+    background: transparent;
+}
+
 /*-------------------------------- Top Navber -------------------------*/
 .topber {
     position: fixed;

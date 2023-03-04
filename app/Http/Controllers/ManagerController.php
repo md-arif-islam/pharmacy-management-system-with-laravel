@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateAllTypesUserRequest;
 use App\Models\Manager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller {
     public function allManagers() {
@@ -27,41 +28,48 @@ class ManagerController extends Controller {
             'email' => 'required|email',
             'phone' => [
                 'required',
-                'regex:/^([0-9\s\-\+\(\)]*)$/',
             ],
         ] ) );
         return redirect()->route( 'managers.show' );
     }
 
-    public function deleteManager( Request $request, Manager $manager ) {
-
+    public function deleteManager( Manager $manager ) {
+        $manager->delete();
+        return redirect()->route( 'managers.show' );
     }
 
-    public function createManager( CreateAllTypesUserRequest $request ) {
+    public function createManager( Request $request ) {
+        $validator = Validator::make( $request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => [
+                'required',
+            ],
+            'password' => 'required|string|min:8',
 
-        // Check if the authenticated user has permission to create a manager
-        $this->authorize( 'create', Manager::class );
+        ] );
 
-        // Retrieve validated input data
-        $data = $request->validated();
-
-        if ( !$data ) {
-            return redirect()->back()->withErrors( $data )->withInput();
+        if ( $validator->fails() ) {
+            return response()->json( [
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422 );
         }
 
-        // Create a new manager with the validated data
-        $manager = new Manager( $data );
+        $manager = new Manager( [
+            'first_name' => $request->input( 'first_name' ),
+            'last_name' => $request->input( 'last_name' ),
+            'email' => $request->input( 'email' ),
+            'phone' => $request->input( 'phone' ),
+            'avatar' => "Avatar",
+            'password' => Hash::make( $request->input( 'password' ) ),
+        ] );
 
-        // Save the new manager to the database
         $manager->save();
 
-        // Return a response indicating success
-        return response()->json( [
-            'message' => 'Manager created successfully',
-            'manager' => $manager,
-        ], 201 );
+        return redirect()->route( 'managers.show' );
 
-        return redirect()->route( "managers.show" );
     }
 
 }

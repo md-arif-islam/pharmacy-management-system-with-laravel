@@ -35,10 +35,16 @@ Route::get( "/managers/{manager}/edit", [ManagerController::class, "editManager"
 Route::post( "/managers/{manager}", [ManagerController::class, "updateManager"] )->name( "managers.update" );
 Route::delete( "/managers/{manager}", [ManagerController::class, "deleteManager"] )->name( "managers.delete" );
 
-Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists" );
-Route::get( "/addpharmacists", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
-Route::get( "/updatepharmacist", [PharmacistController::class, "updatePharmacist"] )->name( "pharmacists.update" );
+Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists.show" );
+Route::get( "/pharmacists/add", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
+Route::post( "/pharmacists/create", [PharmacistController::class, "createPharmacist"] )->name( "pharmacists.create" );
+Route::get( "/pharmacists/{pharmacist}/edit", [PharmacistController::class, "editPharmacist"] )->name( "pharmacists.edit" );
+Route::post( "/pharmacists/{pharmacist}", [PharmacistController::class, "updatePharmacist"] )->name( "pharmacists.update" );
+Route::delete( "/pharmacists/{pharmacist}", [PharmacistController::class, "deletePharmacist"] )->name( "pharmacists.delete" );
 
-Route::get( "/salesmen", [SalesmanController::class, "allSalesmen"] )->name( "salesmen" );
-Route::get( "/addsalesmen", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
-Route::get( "/updatepharmacist", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
+Route::get( "/salesmen", [SalesmanController::class, "allSalesmen"] )->name( "salesmen.show" );
+Route::get( "/salesmen/add", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
+Route::post( "/salesmen/create", [SalesmanController::class, "createSalesman"] )->name( "salesmen.create" );
+Route::get( "/salesmen/{salesman}/edit", [SalesmanController::class, "editSalesman"] )->name( "salesmen.edit" );
+Route::post( "/salesmen/{salesman}", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
+Route::delete( "/salesmen/{salesman}", [SalesmanController::class, "deleteSalesman"] )->name( "salesmen.delete" );

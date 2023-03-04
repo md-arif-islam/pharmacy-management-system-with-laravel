@@ -20,6 +20,7 @@ class LoginController extends Controller {
         }
 
         if ( Auth::guard( 'manager' )->attempt( $credentials ) ) {
+            session()->put( 'guard', "manager" );
             return redirect()->route( "dashboard" );
         }
 
