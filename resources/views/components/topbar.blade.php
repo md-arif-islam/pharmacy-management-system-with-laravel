@@ -1,12 +1,13 @@
 <section class="topber">
     <div class="topber__title">
         <span class="topber__title--text">
-            DashBoard
+            Pharmacy Management System
         </span>
     </div>
 
     <div class="topber__profile">
-        <img src="{{ asset('assets/img/avatar.png') }}" height="25" width="25" class="rounded-circle" alt="profile">
+        <img src="{{ empty(auth(session()->get('guard'))->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . auth(session()->get('guard'))->user()?->avatar) }}"
+            height="25" width="25" class="rounded-circle" alt="profile">
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">

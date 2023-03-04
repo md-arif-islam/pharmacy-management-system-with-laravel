@@ -38,7 +38,8 @@
                                 <tr>
                                     <td>
                                         <center><img class="rounded-circle" width="40" height="40"
-                                                src="{{ asset('assets/img/avatar.png') }}" alt=""></center>
+                                                src="{{ empty($pharmacist->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . $pharmacist->avatar) }}"
+                                                alt=""></center>
                                     </td>
                                     <td>
                                         {{ $pharmacist->first_name . ' ' . $pharmacist->last_name }}

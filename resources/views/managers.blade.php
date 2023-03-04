@@ -29,12 +29,18 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @if ($managers->count() < 1)
+                                <td>
+                                    <center>No data abailable</center>
+                                </td>
+                            @endif
                             @foreach ($managers as $manager)
                                 <tr>
                                     <td>
                                         <center><img class="rounded-circle" width="40" height="40"
-                                                src="{{ asset('assets/img/avatar.png') }}" alt=""></center>
+                                                src="{{ empty($manager->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . $manager->avatar) }}"
+                                                alt="">
+                                        </center>
                                     </td>
                                     <td>
                                         {{ $manager->first_name . ' ' . $manager->last_name }}

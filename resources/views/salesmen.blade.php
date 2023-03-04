@@ -30,13 +30,18 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @if ($salesmen->count() < 1)
+                                <td>
+                                    <center>No data abailable</center>
+                                </td>
+                            @endif
 
                             @foreach ($salesmen as $salesman)
                                 <tr>
                                     <td>
                                         <center><img class="rounded-circle" width="40" height="40"
-                                                src="{{ asset('assets/img/avatar.png') }}" alt=""></center>
+                                                src="{{ empty($salesman->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . $salesman->avatar) }}"
+                                                alt=""></center>
                                     </td>
                                     <td>
                                         {{ $salesman->first_name . ' ' . $salesman->last_name }}

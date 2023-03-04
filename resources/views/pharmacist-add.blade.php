@@ -17,9 +17,17 @@
             <div class="addPharmacist">
                 <div class="main__form">
                     <div class="main__form--title text-center">Add New Pharmacist</div>
-                    <form action="{{ route('pharmacists.create') }}" method="POST">
+                    <form action="{{ route('pharmacists.create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
+                            <div class="col col-12 text-center pb-3">
+                                <img id="pimg" src="{{ asset('assets/img/avatar.png') }}"
+                                    class="img-fluid rounded-circle" alt="">
+                                <i class="fas fa-pen pimgedit"></i>
+                                <input
+                                    onchange="document.getElementById('pimg').src = window.URL.createObjectURL(this.files[0])"
+                                    id="pimgi" style="display: none;" type="file" name="avatar">
+                            </div>
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-user-circle"></i>

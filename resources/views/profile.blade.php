@@ -20,7 +20,8 @@
                         <div class="main__form--title myProfile__title text-center">My Profile</div>
                         <div class="form-row text-center">
                             <div class="col col-12 text-center pb-3">
-                                <img src="assets/img/avatar.png" class="img-fluid rounded-circle" alt="">
+                                <img src="{{ empty(auth(session()->get('guard'))->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . auth(session()->get('guard'))->user()?->avatar) }}"
+                                    class="img-fluid rounded-circle" alt="">
                             </div>
                             <div class="col col-12">
                                 <h4><b>Full Name : </b>
@@ -35,6 +36,11 @@
                             <div class="col col-12">
                                 <h4><b>Phone : </b>
                                     {{ auth(session()->get('guard'))->user()?->phone }}
+                                </h4>
+                            </div>
+                            <div class="col col-12">
+                                <h4><b>Role : </b>
+                                    {{ ucwords(session()->get('guard')) }}
                                 </h4>
                             </div>
                             <input type="hidden" name="id" value="userProfileEdit">

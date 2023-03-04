@@ -1,6 +1,6 @@
 <section id="sideber" class="sideber">
     <ul class="sideber__ber">
-        <h2 class="sideber__panel">Pharmacy Management System</h2>
+        {{-- <h2 class="sideber__panel">Pharmacy Management System</h2> --}}
         <li id="left" class="sideber__item @if (request()->routeIs('dashboard')) active @endif">
             <a href="{{ route('dashboard') }}"><i id="left" class="fas fa-tachometer-alt"></i>Dashboard</a>
         </li>

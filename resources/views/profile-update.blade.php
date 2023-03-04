@@ -17,11 +17,12 @@
             <div class="userProfileEdit">
                 <div class="main__form">
                     <div class="main__form--title text-center">Update My Profile</div>
-                    <form enctype="multipart/form-data" action="#" method="POST">
+                    <form enctype="multipart/form-data" action="#" method="POST" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="col col-12 text-center pb-3">
-                                <img id="pimg" src="assets/img/avatar.png" class="img-fluid rounded-circle"
-                                    alt="">
+                                <img id="pimg"
+                                    src="{{ empty(auth(session()->get('guard'))->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . auth(session()->get('guard'))->user()?->avatar) }}"
+                                    class="img-fluid rounded-circle" alt="">
                                 <i class="fas fa-pen pimgedit"></i>
                                 <input
                                     onchange="document.getElementById('pimg').src = window.URL.createObjectURL(this.files[0])"
@@ -64,21 +65,11 @@
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-key"></i>
-                                    <input id="pwdinput" type="password" name="oldPassword" placeholder="Old Password"
-                                        required>
+                                    <input id="pwdinput" type="password" name="password" placeholder="Password" required>
                                     <i id="pwd" class="fas fa-eye right"></i>
                                 </label>
                             </div>
-                            <div class="col col-12">
-                                <label class="input">
-                                    <i id="left" class="fas fa-key"></i>
-                                    <input id="pwdinput" type="password" name="newPassword" placeholder="New Password"
-                                        required>
-                                    <p>Type Old Password if you don't want to change</p>
-                                    <i id="pwd" class="fas fa-eye right"></i>
-                                </label>
-                            </div>
-                            <input type="hidden" name="action" value="updateProfile">
+
                             <div class="col col-12">
                                 <input type="submit" value="Update">
                             </div>
