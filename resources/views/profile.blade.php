@@ -45,7 +45,7 @@
                             </div>
                             <input type="hidden" name="id" value="userProfileEdit">
                             <div class="col col-12">
-                                <a href="{{ route('profile.update') }}">Update Profile</a>
+                                <a href="{{ route('profile.edit') }}">Update Profile</a>
                             </div>
                         </div>
                     </form>

@@ -17,7 +17,10 @@
             <div class="userProfileEdit">
                 <div class="main__form">
                     <div class="main__form--title text-center">Update My Profile</div>
-                    <form enctype="multipart/form-data" action="#" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <div class="form-row">
                             <div class="col col-12 text-center pb-3">
                                 <img id="pimg"
@@ -65,7 +68,7 @@
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-key"></i>
-                                    <input id="pwdinput" type="password" name="password" placeholder="Password" required>
+                                    <input id="pwdinput" type="password" name="password" placeholder="Password">
                                     <i id="pwd" class="fas fa-eye right"></i>
                                 </label>
                             </div>

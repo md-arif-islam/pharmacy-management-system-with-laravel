@@ -21,8 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get( "/", [DashboardController::class, "dashboard"] )->name( "dashboard" );
 
-Route::get( "/profile", [ProfileController::class, "profile"] )->name( "profile" );
-Route::get( "/updateprofile", [ProfileController::class, "updateProfile"] )->name( "profile.update" );
+Route::get( "/profile", [ProfileController::class, "profile"] )->name( "profile.show" );
+Route::get( "/profile/edit", [ProfileController::class, "editProfile"] )->name( "profile.edit" );
+Route::put( "/profile/update", [ProfileController::class, "updateProfile"] )->name( "profile.update" );
 
 Route::get( "/login", [LoginController::class, "login"] )->name( "login" );
 Route::get( "/logout", [LoginController::class, "logout"] )->name( "logout" );

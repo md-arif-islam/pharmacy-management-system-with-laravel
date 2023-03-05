@@ -17,7 +17,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
-                <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a>
                 <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
             </div>
         </div>
