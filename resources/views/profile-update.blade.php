@@ -17,14 +17,14 @@
             <div class="userProfileEdit">
                 <div class="main__form">
                     <div class="main__form--title text-center">Update My Profile</div>
-                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('profile.update', auth()->user()) }}" method="POST" enctype="multipart/form-data"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-row">
                             <div class="col col-12 text-center pb-3">
                                 <img id="pimg"
-                                    src="{{ empty(auth(session()->get('guard'))->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . auth(session()->get('guard'))->user()?->avatar) }}"
+                                    src="{{ empty(auth()->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . auth()->user()->avatar) }}"
                                     class="img-fluid rounded-circle" alt="">
                                 <i class="fas fa-pen pimgedit"></i>
                                 <input
@@ -41,28 +41,28 @@
                                 <label class="input">
                                     <i id="left" class="fas fa-user-circle"></i>
                                     <input type="text" name="first_name" placeholder="First name"
-                                        value="{{ auth(session()->get('guard'))->user()?->first_name }}" required>
+                                        value="{{ auth()->user()->first_name }}" required>
                                 </label>
                             </div>
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-user-circle"></i>
                                     <input type="text" name="last_name" placeholder="Last Name"
-                                        value="{{ auth(session()->get('guard'))->user()?->last_name }}" required>
+                                        value="{{ auth()->user()->last_name }}" required>
                                 </label>
                             </div>
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-envelope"></i>
                                     <input type="email" name="email" placeholder="Email"
-                                        value="{{ auth(session()->get('guard'))->user()?->email }}" required>
+                                        value="{{ auth()->user()->email }}" required>
                                 </label>
                             </div>
                             <div class="col col-12">
                                 <label class="input">
                                     <i id="left" class="fas fa-phone-alt"></i>
                                     <input type="number" name="phone" placeholder="Phone"
-                                        value="{{ auth(session()->get('guard'))->user()?->phone }}" required>
+                                        value="{{ auth()->user()->phone }}" required>
                                 </label>
                             </div>
                             <div class="col col-12">

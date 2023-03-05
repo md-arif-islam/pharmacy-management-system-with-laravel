@@ -30,7 +30,7 @@ Route::middleware( ["auth"] )->group( function () {
 
     Route::get( "/profile", [ProfileController::class, "profile"] )->name( "profile.show" );
     Route::get( "/profile/edit", [ProfileController::class, "editProfile"] )->name( "profile.edit" );
-    Route::put( "/profile/update", [ProfileController::class, "updateProfile"] )->name( "profile.update" );
+    Route::put( "/profile/{user}", [ProfileController::class, "updateProfile"] )->name( "profile.update" );
 
     Route::get( "/managers", [ManagerController::class, "allManagers"] )->name( "managers.show" );
     Route::get( "/managers/add", [ManagerController::class, "addManager"] )->name( "managers.add" );

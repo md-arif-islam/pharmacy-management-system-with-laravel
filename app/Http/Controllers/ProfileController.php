@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -16,8 +17,8 @@ class ProfileController extends Controller {
         return view( "profile-update" );
     }
 
-    public function updateProfile( Request $request ) {
-        $user = auth( session()->get( 'guard' ) )->user();
+    public function updateProfile( Request $request, $user ) {
+        $user = User::find( $user );
 
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
@@ -25,7 +26,7 @@ class ProfileController extends Controller {
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'password' => 'nullable|string|min:6|confirmed',
+            'password' => 'nullable|string|min:6',
         ] );
 
         if ( $validator->fails() ) {

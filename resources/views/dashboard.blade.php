@@ -26,7 +26,7 @@
                     <div class="col-3">
                         <div class="total__box text-center">
                             <h1>
-                                1234
+                                {{ $managerCount }}
                             </h1>
                             <h2>Manager</h2>
                         </div>
@@ -34,7 +34,7 @@
                     <div class="col-3">
                         <div class="total__box text-center">
                             <h1>
-                                1234
+                                {{ $pharmacistCount }}
 
                             </h1>
                             <h2>Pharmacist</h2>
@@ -43,7 +43,7 @@
                     <div class="col-3">
                         <div class="total__box text-center">
                             <h1>
-                                1234
+                                {{ $salesmanCount }}
                             </h1>
                             <h2>Salesman</h2>
                         </div>
