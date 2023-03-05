@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Pharmacist;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PharmacistController extends Controller {
     public function allPharmacists() {
-        $pharmacists = Pharmacist::all();
+        $pharmacists = User::where( 'role', 'pharmacist' )->get();
         return view( "pharmacists", ['pharmacists' => $pharmacists] );
     }
 
@@ -18,8 +17,9 @@ class PharmacistController extends Controller {
         return view( "pharmacist-add" );
     }
 
-    public function editPharmacist( Pharmacist $pharmacist ) {
-        return view( 'pharmacist-update', compact( 'pharmacist' ) );
+    public function editPharmacist( $pharmacist ) {
+        $pharmacist = User::find( $pharmacist );
+        return view( 'pharmacist-update', ['pharmacist' => $pharmacist] );
     }
 
     public function createPharmacist( Request $request ) {
@@ -42,12 +42,13 @@ class PharmacistController extends Controller {
             ], 422 );
         }
 
-        $pharmacist = new Pharmacist( [
+        $pharmacist = new User( [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make( $request->password ),
+            "role" => "pharmacist",
         ] );
 
         $pharmacist->save();
@@ -62,7 +63,8 @@ class PharmacistController extends Controller {
 
     }
 
-    public function updatePharmacist( Request $request, Pharmacist $pharmacist ) {
+    public function updatePharmacist( Request $request, $pharmacist ) {
+        $pharmacist = User::find( $pharmacist );
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -97,7 +99,8 @@ class PharmacistController extends Controller {
         return redirect()->route( 'pharmacists.show' );
     }
 
-    public function deletePharmacist( Pharmacist $pharmacist ) {
+    public function deletePharmacist( $pharmacist ) {
+        $pharmacist = User::find( $pharmacist );
         $pharmacist->delete();
         return redirect()->route( 'pharmacists.show' );
     }
