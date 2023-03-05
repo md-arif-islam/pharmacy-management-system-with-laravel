@@ -19,33 +19,37 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get( "/", [DashboardController::class, "dashboard"] )->name( "dashboard" );
+Route::middleware( ['guest'] )->group( function () {
+    Route::get( "/login", [LoginController::class, "login"] )->name( "login" );
+    Route::post( "/authlogin", [LoginController::class, "authLogin"] )->name( "login.auth" );
+} );
 
-Route::get( "/profile", [ProfileController::class, "profile"] )->name( "profile.show" );
-Route::get( "/profile/edit", [ProfileController::class, "editProfile"] )->name( "profile.edit" );
-Route::put( "/profile/update", [ProfileController::class, "updateProfile"] )->name( "profile.update" );
+Route::middleware( ["auth"] )->group( function () {
+    Route::get( "/", [DashboardController::class, "dashboard"] )->name( "dashboard" );
+    Route::post( "/logout", [LoginController::class, "logout"] )->name( "logout" );
 
-Route::get( "/login", [LoginController::class, "login"] )->name( "login" );
-Route::get( "/logout", [LoginController::class, "logout"] )->name( "logout" );
-Route::post( "/authlogin", [LoginController::class, "authLogin"] )->name( "login.auth" );
+    Route::get( "/profile", [ProfileController::class, "profile"] )->name( "profile.show" );
+    Route::get( "/profile/edit", [ProfileController::class, "editProfile"] )->name( "profile.edit" );
+    Route::put( "/profile/update", [ProfileController::class, "updateProfile"] )->name( "profile.update" );
 
-Route::get( "/managers", [ManagerController::class, "allManagers"] )->name( "managers.show" );
-Route::get( "/managers/add", [ManagerController::class, "addManager"] )->name( "managers.add" );
-Route::post( "/managers/create", [ManagerController::class, "createManager"] )->name( "managers.create" );
-Route::get( "/managers/{manager}/edit", [ManagerController::class, "editManager"] )->name( "managers.edit" );
-Route::post( "/managers/{manager}", [ManagerController::class, "updateManager"] )->name( "managers.update" );
-Route::delete( "/managers/{manager}", [ManagerController::class, "deleteManager"] )->name( "managers.delete" );
+    Route::get( "/managers", [ManagerController::class, "allManagers"] )->name( "managers.show" );
+    Route::get( "/managers/add", [ManagerController::class, "addManager"] )->name( "managers.add" );
+    Route::post( "/managers/create", [ManagerController::class, "createManager"] )->name( "managers.create" );
+    Route::get( "/managers/{manager}/edit", [ManagerController::class, "editManager"] )->name( "managers.edit" );
+    Route::post( "/managers/{manager}", [ManagerController::class, "updateManager"] )->name( "managers.update" );
+    Route::delete( "/managers/{manager}", [ManagerController::class, "deleteManager"] )->name( "managers.delete" );
 
-Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists.show" );
-Route::get( "/pharmacists/add", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
-Route::post( "/pharmacists/create", [PharmacistController::class, "createPharmacist"] )->name( "pharmacists.create" );
-Route::get( "/pharmacists/{pharmacist}/edit", [PharmacistController::class, "editPharmacist"] )->name( "pharmacists.edit" );
-Route::post( "/pharmacists/{pharmacist}", [PharmacistController::class, "updatePharmacist"] )->name( "pharmacists.update" );
-Route::delete( "/pharmacists/{pharmacist}", [PharmacistController::class, "deletePharmacist"] )->name( "pharmacists.delete" );
+    Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists.show" );
+    Route::get( "/pharmacists/add", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
+    Route::post( "/pharmacists/create", [PharmacistController::class, "createPharmacist"] )->name( "pharmacists.create" );
+    Route::get( "/pharmacists/{pharmacist}/edit", [PharmacistController::class, "editPharmacist"] )->name( "pharmacists.edit" );
+    Route::post( "/pharmacists/{pharmacist}", [PharmacistController::class, "updatePharmacist"] )->name( "pharmacists.update" );
+    Route::delete( "/pharmacists/{pharmacist}", [PharmacistController::class, "deletePharmacist"] )->name( "pharmacists.delete" );
 
-Route::get( "/salesmen", [SalesmanController::class, "allSalesmen"] )->name( "salesmen.show" );
-Route::get( "/salesmen/add", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
-Route::post( "/salesmen/create", [SalesmanController::class, "createSalesman"] )->name( "salesmen.create" );
-Route::get( "/salesmen/{salesman}/edit", [SalesmanController::class, "editSalesman"] )->name( "salesmen.edit" );
-Route::post( "/salesmen/{salesman}", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
-Route::delete( "/salesmen/{salesman}", [SalesmanController::class, "deleteSalesman"] )->name( "salesmen.delete" );
+    Route::get( "/salesmen", [SalesmanController::class, "allSalesmen"] )->name( "salesmen.show" );
+    Route::get( "/salesmen/add", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
+    Route::post( "/salesmen/create", [SalesmanController::class, "createSalesman"] )->name( "salesmen.create" );
+    Route::get( "/salesmen/{salesman}/edit", [SalesmanController::class, "editSalesman"] )->name( "salesmen.edit" );
+    Route::post( "/salesmen/{salesman}", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
+    Route::delete( "/salesmen/{salesman}", [SalesmanController::class, "deleteSalesman"] )->name( "salesmen.delete" );
+} );

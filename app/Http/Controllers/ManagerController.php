@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Manager;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller {
     public function allManagers() {
-        $managers = Manager::all();
+        $managers = User::where( 'role', 'manager' )->get();
         return view( "managers", ['managers' => $managers] );
     }
 
@@ -18,8 +17,9 @@ class ManagerController extends Controller {
         return view( "manager-add" );
     }
 
-    public function editManager( Manager $manager ) {
-        return view( 'manager-update', compact( 'manager' ) );
+    public function editManager( $manager ) {
+        $manager = User::find( $manager );
+        return view( 'manager-update', ['manager' => $manager] );
     }
 
     public function createManager( Request $request ) {
@@ -42,12 +42,13 @@ class ManagerController extends Controller {
             ], 422 );
         }
 
-        $manager = new Manager( [
+        $manager = new User( [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make( $request->password ),
+            "role" => "manager",
         ] );
 
         $manager->save();
@@ -62,7 +63,8 @@ class ManagerController extends Controller {
 
     }
 
-    public function updateManager( Request $request, Manager $manager ) {
+    public function updateManager( Request $request, $manager ) {
+        $manager = User::find( $manager );
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -97,7 +99,8 @@ class ManagerController extends Controller {
         return redirect()->route( 'managers.show' );
     }
 
-    public function deleteManager( Manager $manager ) {
+    public function deleteManager( $manager ) {
+        $manager = User::find( $manager );
         $manager->delete();
         return redirect()->route( 'managers.show' );
     }

@@ -13,34 +13,21 @@ class LoginController extends Controller {
     public function authLogin( Request $request ) {
         $credentials = $request->only( 'email', 'password' );
 
-        if ( Auth::guard( 'admin' )->attempt( $credentials ) ) {
-
-            session()->put( 'guard', "admin" );
+        if ( Auth::attempt( $credentials ) ) {
             return redirect()->route( "dashboard" );
+        } else {
+            // Authentication failed
+            return redirect()->back()->withErrors( [
+                'message' => 'Invalid login credentials or user not found!',
+            ] );
         }
-
-        if ( Auth::guard( 'manager' )->attempt( $credentials ) ) {
-            session()->put( 'guard', "manager" );
-            return redirect()->route( "dashboard" );
-        }
-
-        if ( Auth::guard( 'pharmacist' )->attempt( $credentials ) ) {
-            return redirect()->route( "dashboard" );
-        }
-
-        if ( Auth::guard( 'salesman' )->attempt( $credentials ) ) {
-            return redirect()->route( "dashboard" );
-        }
-
-        // Authentication failed...
-        return redirect()->back()->withErrors( [
-            'message' => 'Invalid login credentials or user not found!',
-        ] );
     }
 
-    public function logout() {
-        // Remove a session value
-        session()->forget( 'guard' );
+    public function logout( Request $request ) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route( "login" );
     }
 }

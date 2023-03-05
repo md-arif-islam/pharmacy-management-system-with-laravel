@@ -6,9 +6,11 @@
         </li>
 
         <!-- Only For Admin -->
-        <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('managers.add')) active @endif">
-            <a href="{{ route('managers.add') }}"><i id="left" class="fas fa-user-plus"></i></i>Add Manager</a>
-        </li>
+        @can('isAdmin')
+            <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('managers.add')) active @endif">
+                <a href="{{ route('managers.add') }}"><i id="left" class="fas fa-user-plus"></i></i>Add Manager</a>
+            </li>
+        @endcan
 
         <li id="left" class="sideber__item @if (request()->routeIs('managers.show')) active @endif">
             <a href="{{ route('managers.show') }}"><i id="left" class="fas fa-user"></i>All Manager</a>
