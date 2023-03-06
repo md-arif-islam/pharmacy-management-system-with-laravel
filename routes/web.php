@@ -24,7 +24,7 @@ Route::middleware( ['guest'] )->group( function () {
     Route::post( "/authlogin", [LoginController::class, "authLogin"] )->name( "login.auth" );
 } );
 
-Route::middleware( ["auth"] )->group( function () {
+Route::middleware( "auth" )->group( function () {
     Route::get( "/", [DashboardController::class, "dashboard"] )->name( "dashboard" );
     Route::post( "/logout", [LoginController::class, "logout"] )->name( "logout" );
 
@@ -33,23 +33,32 @@ Route::middleware( ["auth"] )->group( function () {
     Route::put( "/profile/{user}", [ProfileController::class, "updateProfile"] )->name( "profile.update" );
 
     Route::get( "/managers", [ManagerController::class, "allManagers"] )->name( "managers.show" );
-    Route::get( "/managers/add", [ManagerController::class, "addManager"] )->name( "managers.add" );
-    Route::post( "/managers/create", [ManagerController::class, "createManager"] )->name( "managers.create" );
-    Route::get( "/managers/{manager}/edit", [ManagerController::class, "editManager"] )->name( "managers.edit" );
-    Route::post( "/managers/{manager}", [ManagerController::class, "updateManager"] )->name( "managers.update" );
-    Route::delete( "/managers/{manager}", [ManagerController::class, "deleteManager"] )->name( "managers.delete" );
+    Route::group( ['middleware' => 'can:isAdmin'], function () {
+        Route::get( "/managers/add", [ManagerController::class, "addManager"] )->name( "managers.add" );
+        Route::post( "/managers/create", [ManagerController::class, "createManager"] )->name( "managers.create" );
+        Route::get( "/managers/{manager}/edit", [ManagerController::class, "editManager"] )->name( "managers.edit" );
+        Route::post( "/managers/{manager}", [ManagerController::class, "updateManager"] )->name( "managers.update" );
+        Route::delete( "/managers/{manager}", [ManagerController::class, "deleteManager"] )->name( "managers.delete" );
+    } );
 
     Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists.show" );
-    Route::get( "/pharmacists/add", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
-    Route::post( "/pharmacists/create", [PharmacistController::class, "createPharmacist"] )->name( "pharmacists.create" );
-    Route::get( "/pharmacists/{pharmacist}/edit", [PharmacistController::class, "editPharmacist"] )->name( "pharmacists.edit" );
-    Route::post( "/pharmacists/{pharmacist}", [PharmacistController::class, "updatePharmacist"] )->name( "pharmacists.update" );
-    Route::delete( "/pharmacists/{pharmacist}", [PharmacistController::class, "deletePharmacist"] )->name( "pharmacists.delete" );
+    Route::group( ['middleware' => 'can:isAdmin|isManager'], function () {
+        Route::get( "/pharmacists/add", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
+        Route::post( "/pharmacists/create", [PharmacistController::class, "createPharmacist"] )->name( "pharmacists.create" );
+        Route::get( "/pharmacists/{pharmacist}/edit", [PharmacistController::class, "editPharmacist"] )->name( "pharmacists.edit" );
+        Route::post( "/pharmacists/{pharmacist}", [PharmacistController::class, "updatePharmacist"] )->name( "pharmacists.update" );
+        Route::delete( "/pharmacists/{pharmacist}", [PharmacistController::class, "deletePharmacist"] )->name( "pharmacists.delete" );
+    } );
 
     Route::get( "/salesmen", [SalesmanController::class, "allSalesmen"] )->name( "salesmen.show" );
+
+} );
+
+Route::middleware(['auth', 'can:isAdmin|isManager'] function () {
     Route::get( "/salesmen/add", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
     Route::post( "/salesmen/create", [SalesmanController::class, "createSalesman"] )->name( "salesmen.create" );
     Route::get( "/salesmen/{salesman}/edit", [SalesmanController::class, "editSalesman"] )->name( "salesmen.edit" );
     Route::post( "/salesmen/{salesman}", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
     Route::delete( "/salesmen/{salesman}", [SalesmanController::class, "deleteSalesman"] )->name( "salesmen.delete" );
 } );
+

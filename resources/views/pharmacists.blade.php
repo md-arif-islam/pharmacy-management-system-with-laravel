@@ -23,9 +23,10 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
-                                <!-- Only For Admin -->
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
+                                @canany(['isAdmin', 'isManager'])
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
@@ -38,7 +39,7 @@
                                 <tr>
                                     <td>
                                         <center><img class="rounded-circle" width="40" height="40"
-                                                src="{{ empty($pharmacist->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . $pharmacist->avatar) }}"
+                                                src="{{ empty($pharmacist->avatar) ? asset('assets/img/avatar.png') : asset('storage/avatars/' . $pharmacist->avatar) }}"
                                                 alt=""></center>
                                     </td>
                                     <td>
@@ -49,22 +50,23 @@
                                     <td>
                                         {{ $pharmacist->phone }}
                                     </td>
-                                    <!-- Only For Admin -->
-                                    <td>
-                                        <a href='{{ route('pharmacists.edit', ['pharmacist' => $pharmacist->id]) }}'><i
-                                                class='fas fa-edit'></i></a>
-                                    </td>
+                                    <!--  -->
+                                    @canany(['isAdmin', 'isManager'])
+                                        <td>
+                                            <a href='{{ route('pharmacists.edit', ['pharmacist' => $pharmacist->id]) }}'><i
+                                                    class='fas fa-edit'></i></a>
+                                        </td>
 
-                                    <td>
-                                        <form
-                                            action="{{ route('pharmacists.delete', ['pharmacist' => $pharmacist->id]) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="delete"><i class='fas fa-trash'></i></button>
-                                        </form>
-                                    </td>
-
+                                        <td>
+                                            <form
+                                                action="{{ route('pharmacists.delete', ['pharmacist' => $pharmacist->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="delete"><i class='fas fa-trash'></i></button>
+                                            </form>
+                                        </td>
+                                    @endcanany
 
                                 </tr>
                             @endforeach

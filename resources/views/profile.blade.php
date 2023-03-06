@@ -20,7 +20,7 @@
                         <div class="main__form--title myProfile__title text-center">My Profile</div>
                         <div class="form-row text-center">
                             <div class="col col-12 text-center pb-3">
-                                <img src="{{ empty(auth()->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . auth()->user()->avatar) }}"
+                                <img src="{{ empty(auth()->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/avatars/' . auth()->user()->avatar) }}"
                                     class="img-fluid rounded-circle" alt="">
                             </div>
                             <div class="col col-12">

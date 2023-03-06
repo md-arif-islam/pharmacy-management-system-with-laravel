@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SalesmanController extends Controller {
@@ -13,16 +12,16 @@ class SalesmanController extends Controller {
         return view( "salesmen", ['salesmen' => $salesmen] );
     }
 
-    public function addPharmacist() {
+    public function addSalesman() {
         return view( "salesman-add" );
     }
 
-    public function editPharmacist( $salesman ) {
+    public function editSalesman( $salesman ) {
         $salesman = User::find( $salesman );
         return view( 'salesman-update', ['salesman' => $salesman] );
     }
 
-    public function createPharmacist( Request $request ) {
+    public function createSalesman( Request $request ) {
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -54,7 +53,9 @@ class SalesmanController extends Controller {
         $salesman->save();
 
         if ( $request->hasFile( 'avatar' ) ) {
-            $avatarPath = Storage::putFile( 'avatars', $request->file( 'avatar' ) );
+            $avatarPath = time() . '-' . $request->file( 'avatar' )->getClientOriginalName();
+            $request->file( 'avatar' )->storeAs( 'public/avatars', $avatarPath );
+
             $salesman->avatar = $avatarPath;
             $salesman->save();
         }
@@ -63,7 +64,7 @@ class SalesmanController extends Controller {
 
     }
 
-    public function updatePharmacist( Request $request, $salesman ) {
+    public function updateSalesman( Request $request, $salesman ) {
         $salesman = User::find( $salesman );
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
@@ -91,7 +92,9 @@ class SalesmanController extends Controller {
         ] );
 
         if ( $request->hasFile( 'avatar' ) ) {
-            $avatarPath = Storage::putFile( 'avatars', $request->file( 'avatar' ) );
+            $avatarPath = time() . '-' . $request->file( 'avatar' )->getClientOriginalName();
+            $request->file( 'avatar' )->storeAs( 'public/avatars', $avatarPath );
+
             $salesman->avatar = $avatarPath;
             $salesman->save();
         }
@@ -99,7 +102,7 @@ class SalesmanController extends Controller {
         return redirect()->route( 'salesmen.show' );
     }
 
-    public function deletePharmacist( $salesman ) {
+    public function deleteSalesman( $salesman ) {
         $salesman = User::find( $salesman );
         $salesman->delete();
         return redirect()->route( 'salesmen.show' );

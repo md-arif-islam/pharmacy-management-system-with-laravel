@@ -24,7 +24,7 @@
                         <div class="form-row">
                             <div class="col col-12 text-center pb-3">
                                 <img id="pimg"
-                                    src="{{ empty($manager->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . $manager->avatar) }}"
+                                    src="{{ empty($manager->avatar) ? asset('assets/img/avatar.png') : asset('storage/avatars/' . $manager->avatar) }}"
                                     class="img-fluid rounded-circle" alt="">
                                 <i class="fas fa-pen pimgedit"></i>
                                 <input

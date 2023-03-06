@@ -12,24 +12,31 @@
             </li>
         @endcan
 
+
         <li id="left" class="sideber__item @if (request()->routeIs('managers.show')) active @endif">
             <a href="{{ route('managers.show') }}"><i id="left" class="fas fa-user"></i>All Manager</a>
         </li>
 
         <!-- For Admin, Manager -->
-        <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('pharmacists.add')) active @endif">
-            <a href="{{ route('pharmacists.add') }}"><i id="left" class="fas fa-user-plus"></i></i>Add
-                Pharmacist</a>
-        </li>
+        @canany(['isAdmin', 'isManager'])
+            <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('pharmacists.add')) active @endif">
+                <a href="{{ route('pharmacists.add') }}"><i id="left" class="fas fa-user-plus"></i></i>Add
+                    Pharmacist</a>
+            </li>
+        @endcanany
+
 
         <li id="left" class="sideber__item @if (request()->routeIs('pharmacists.show')) active @endif">
             <a href="{{ route('pharmacists.show') }}"><i id="left" class="fas fa-user"></i>All Pharmacist</a>
         </li>
 
         <!-- For Admin, Manager, Pharmacist-->
-        <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('salesmen.add')) active @endif">
-            <a href="{{ route('salesmen.add') }}"><i id="left" class="fas fa-user-plus"></i>Add Salesman</a>
-        </li>
+        @canany(['isAdmin', 'isManager', 'isPharmacist'])
+            <li id="left" class="sideber__item sideber__item--modify @if (request()->routeIs('salesmen.add')) active @endif">
+                <a href="{{ route('salesmen.add') }}"><i id="left" class="fas fa-user-plus"></i>Add Salesman</a>
+            </li>
+        @endcanany
+
 
         <li id="left" class="sideber__item @if (request()->routeIs('salesmen.show')) active @endif">
             <a href="{{ route('salesmen.show') }}"><i id="left" class="fas fa-user"></i>All Salesman</a>

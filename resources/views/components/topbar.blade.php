@@ -6,7 +6,7 @@
     </div>
 
     <div class="topber__profile">
-        <img src="{{ empty(auth()->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/' . auth()->user()->avatar) }}"
+        <img src="{{ empty(auth()->user()->avatar) ? asset('assets/img/avatar.png') : asset('storage/avatars/' . auth()->user()->avatar) }}"
             height="25" width="25" class="rounded-circle" alt="profile">
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"

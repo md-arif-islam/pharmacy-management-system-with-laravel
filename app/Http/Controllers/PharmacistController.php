@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PharmacistController extends Controller {
@@ -54,7 +53,9 @@ class PharmacistController extends Controller {
         $pharmacist->save();
 
         if ( $request->hasFile( 'avatar' ) ) {
-            $avatarPath = Storage::putFile( 'avatars', $request->file( 'avatar' ) );
+            $avatarPath = time() . '-' . $request->file( 'avatar' )->getClientOriginalName();
+            $request->file( 'avatar' )->storeAs( 'public/avatars', $avatarPath );
+
             $pharmacist->avatar = $avatarPath;
             $pharmacist->save();
         }
@@ -91,7 +92,9 @@ class PharmacistController extends Controller {
         ] );
 
         if ( $request->hasFile( 'avatar' ) ) {
-            $avatarPath = Storage::putFile( 'avatars', $request->file( 'avatar' ) );
+            $avatarPath = time() . '-' . $request->file( 'avatar' )->getClientOriginalName();
+            $request->file( 'avatar' )->storeAs( 'public/avatars', $avatarPath );
+
             $pharmacist->avatar = $avatarPath;
             $pharmacist->save();
         }
