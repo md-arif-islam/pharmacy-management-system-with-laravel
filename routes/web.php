@@ -24,7 +24,7 @@ Route::middleware( ['guest'] )->group( function () {
     Route::post( "/authlogin", [LoginController::class, "authLogin"] )->name( "login.auth" );
 } );
 
-Route::middleware( "auth" )->group( function () {
+Route::middleware( ["auth"] )->group( function () {
     Route::get( "/", [DashboardController::class, "dashboard"] )->name( "dashboard" );
     Route::post( "/logout", [LoginController::class, "logout"] )->name( "logout" );
 
@@ -42,7 +42,7 @@ Route::middleware( "auth" )->group( function () {
     } );
 
     Route::get( "/pharmacists", [PharmacistController::class, "allPharmacists"] )->name( "pharmacists.show" );
-    Route::group( ['middleware' => 'can:isAdmin|isManager'], function () {
+    Route::group( ['middleware' => 'can:isAdminOrManager'], function () {
         Route::get( "/pharmacists/add", [PharmacistController::class, "addPharmacist"] )->name( "pharmacists.add" );
         Route::post( "/pharmacists/create", [PharmacistController::class, "createPharmacist"] )->name( "pharmacists.create" );
         Route::get( "/pharmacists/{pharmacist}/edit", [PharmacistController::class, "editPharmacist"] )->name( "pharmacists.edit" );
@@ -51,14 +51,11 @@ Route::middleware( "auth" )->group( function () {
     } );
 
     Route::get( "/salesmen", [SalesmanController::class, "allSalesmen"] )->name( "salesmen.show" );
-
+    Route::group( ['middleware' => ['can:isAdminOrManagerOrPharmacist']], function () {
+        Route::get( "/salesmen/add", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
+        Route::post( "/salesmen/create", [SalesmanController::class, "createSalesman"] )->name( "salesmen.create" );
+        Route::get( "/salesmen/{salesman}/edit", [SalesmanController::class, "editSalesman"] )->name( "salesmen.edit" );
+        Route::post( "/salesmen/{salesman}", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
+        Route::delete( "/salesmen/{salesman}", [SalesmanController::class, "deleteSalesman"] )->name( "salesmen.delete" );
+    } );
 } );
-
-Route::middleware(['auth', 'can:isAdmin|isManager'] function () {
-    Route::get( "/salesmen/add", [SalesmanController::class, "addSalesman"] )->name( "salesmen.add" );
-    Route::post( "/salesmen/create", [SalesmanController::class, "createSalesman"] )->name( "salesmen.create" );
-    Route::get( "/salesmen/{salesman}/edit", [SalesmanController::class, "editSalesman"] )->name( "salesmen.edit" );
-    Route::post( "/salesmen/{salesman}", [SalesmanController::class, "updateSalesman"] )->name( "salesmen.update" );
-    Route::delete( "/salesmen/{salesman}", [SalesmanController::class, "deleteSalesman"] )->name( "salesmen.delete" );
-} );
-
