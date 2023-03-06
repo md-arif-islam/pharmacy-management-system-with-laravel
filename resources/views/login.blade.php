@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}" />
-    <link href="//fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}" />
     <title>Login</title>
 </head>
@@ -18,6 +18,7 @@
     <!--------------------------------- Main section -------------------------------->
     <section class="main">
         <div class="container">
+
             <div class="main__form">
                 <div class="main__form--title text-center">Log In</div>
                 <form action="{{ route('login.auth') }}" method="POST">
