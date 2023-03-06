@@ -13,6 +13,12 @@
 <section class="main">
     <div class="container">
 
+        @if (session('success'))
+            <script>
+                toastr.error("{{ session('success') }}")
+            </script>
+        @endif
+
         <!-- ---------------------- DashBoard ------------------------ -->
         <div class="dashboard p-5">
             <div class="total">

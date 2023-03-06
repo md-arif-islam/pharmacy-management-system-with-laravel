@@ -14,11 +14,13 @@ class LoginController extends Controller {
         $credentials = $request->only( 'email', 'password' );
 
         if ( Auth::attempt( $credentials ) ) {
-            return redirect()->route( "dashboard" );
+            return redirect()->route( "dashboard" )->with( [
+                'success' => 'Login successfully!',
+            ] );
         } else {
             // Authentication failed
-            return redirect()->back()->withErrors( [
-                'message' => 'Invalid login credentials or user not found!',
+            return redirect()->back()->with( [
+                'error' => 'Invalid login credentials or user not found!',
             ] );
         }
     }
@@ -28,6 +30,8 @@ class LoginController extends Controller {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route( "login" );
+        return redirect()->route( "login" )->with( [
+            'success' => 'Log out successfully!',
+        ] );
     }
 }
