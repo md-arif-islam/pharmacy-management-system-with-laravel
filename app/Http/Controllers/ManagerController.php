@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\Mailer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller {
@@ -92,7 +95,7 @@ class ManagerController extends Controller {
             $manager->avatar = $avatarPath;
             $manager->save();
         }
-
+        Mail::to( "arifislamarif344@gmail.com" )->send( new Mailer );
         return redirect()->route( 'managers.show' )->with( 'success', 'Updated successfully.' );
     }
 
