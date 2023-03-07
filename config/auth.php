@@ -40,25 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
 
-        'manager' => [
-            'driver' => 'session',
-            'provider' => 'managers',
-        ],
-
-        'pharmacist' => [
-            'driver' => 'session',
-            'provider' => 'pharmacists',
-        ],
-
-        'salesman' => [
-            'driver' => 'session',
-            'provider' => 'salesmen',
-        ],
     ],
 
     /*
@@ -84,25 +66,6 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-        ],
-
-        'managers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Manager::class,
-        ],
-
-        'pharmacists' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Pharmacist::class,
-        ],
-
-        'salesmen' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Salesman::class,
-        ],
     ],
 
     /*

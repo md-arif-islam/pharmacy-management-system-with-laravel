@@ -25,7 +25,7 @@ class SalesmanController extends Controller {
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users|max:255',
             'phone' => [
                 'required',
             ],
@@ -35,10 +35,7 @@ class SalesmanController extends Controller {
         ] );
 
         if ( $validator->fails() ) {
-            return response()->json( [
-                'message' => 'Validation failed',
-                'errors' => $validator->errors(),
-            ], 422 );
+            return redirect()->back()->withErrors( $validator );
         }
 
         $salesman = new User( [
@@ -60,7 +57,7 @@ class SalesmanController extends Controller {
             $salesman->save();
         }
 
-        return redirect()->route( 'salesmen.show' );
+        return redirect()->route( 'salesmen.show' )->with( 'success', 'Added successfully.' );
 
     }
 
@@ -69,7 +66,7 @@ class SalesmanController extends Controller {
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|max:255',
             'phone' => [
                 'required',
             ],
@@ -78,10 +75,7 @@ class SalesmanController extends Controller {
         ] );
 
         if ( $validator->fails() ) {
-            return response()->json( [
-                'message' => 'Validation failed',
-                'errors' => $validator->errors(),
-            ], 422 );
+            return redirect()->back()->withErrors( $validator );
         }
 
         $salesman->update( [
@@ -99,13 +93,13 @@ class SalesmanController extends Controller {
             $salesman->save();
         }
 
-        return redirect()->route( 'salesmen.show' );
+        return redirect()->route( 'salesmen.show' )->with( 'success', 'Updated successfully.' );
     }
 
     public function deleteSalesman( $salesman ) {
         $salesman = User::find( $salesman );
         $salesman->delete();
-        return redirect()->route( 'salesmen.show' );
+        return redirect()->route( 'salesmen.show' )->with( 'success', 'Deleted successfully.' );
     }
 
 }

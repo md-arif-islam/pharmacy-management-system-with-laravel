@@ -25,7 +25,7 @@ class ManagerController extends Controller {
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users|max:255',
             'phone' => [
                 'required',
             ],
@@ -35,10 +35,7 @@ class ManagerController extends Controller {
         ] );
 
         if ( $validator->fails() ) {
-            return response()->json( [
-                'message' => 'Validation failed',
-                'errors' => $validator->errors(),
-            ], 422 );
+            return redirect()->back()->withErrors( $validator );
         }
 
         $manager = new User( [
@@ -60,7 +57,7 @@ class ManagerController extends Controller {
             $manager->save();
         }
 
-        return redirect()->route( 'managers.show' );
+        return redirect()->route( 'managers.show' )->with( 'success', 'Added successfully.' );
 
     }
 
@@ -69,7 +66,7 @@ class ManagerController extends Controller {
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|max:255',
             'phone' => [
                 'required',
             ],
@@ -78,10 +75,7 @@ class ManagerController extends Controller {
         ] );
 
         if ( $validator->fails() ) {
-            return response()->json( [
-                'message' => 'Validation failed',
-                'errors' => $validator->errors(),
-            ], 422 );
+            return redirect()->back()->withErrors( $validator );
         }
 
         $manager->update( [
@@ -99,13 +93,13 @@ class ManagerController extends Controller {
             $manager->save();
         }
 
-        return redirect()->route( 'managers.show' );
+        return redirect()->route( 'managers.show' )->with( 'success', 'Updated successfully.' );
     }
 
     public function deleteManager( $manager ) {
         $manager = User::find( $manager );
         $manager->delete();
-        return redirect()->route( 'managers.show' );
+        return redirect()->route( 'managers.show' )->with( 'success', 'Deleted successfully.' );
     }
 
 }

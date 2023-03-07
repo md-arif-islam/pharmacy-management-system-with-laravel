@@ -22,17 +22,14 @@ class ProfileController extends Controller {
         $validator = Validator::make( $request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|email,' . $user->id,
             'phone' => 'required',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'password' => 'nullable|string|min:6',
         ] );
 
         if ( $validator->fails() ) {
-            return response()->json( [
-                'message' => 'Validation failed',
-                'errors' => $validator->errors(),
-            ], 422 );
+            return redirect()->back()->withErrors( $validator );
         }
 
         // Update the user's information
@@ -54,7 +51,7 @@ class ProfileController extends Controller {
 
         $user->save();
 
-        return redirect()->route( 'profile.show' );
+        return redirect()->route( 'profile.show' )->with( 'success', 'Updated successfully.' );
     }
 
 }

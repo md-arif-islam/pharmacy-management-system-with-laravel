@@ -15,7 +15,7 @@
 
         @if (session('success'))
             <script>
-                toastr.error("{{ session('success') }}")
+                toastr.success("{{ session('success') }}")
             </script>
         @endif
 

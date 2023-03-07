@@ -15,8 +15,6 @@
 
         <!-- ---------------------- Salesman ------------------------ -->
         <div class="salesman">
-
-
             <div class="updateSalesman">
                 <div class="main__form">
                     <div class="main__form--title text-center">Update Salesman</div>
@@ -65,6 +63,14 @@
                             </div>
                         </div>
                     </form>
+
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <script>
+                                toastr.error("{{ $error }}")
+                            </script>
+                        @endforeach
+                    @endif
                 </div>
             </div>
 

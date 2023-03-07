@@ -13,6 +13,12 @@
 <section class="main">
     <div class="container">
 
+        @if (session('success'))
+            <script>
+                toastr.success("{{ session('success') }}")
+            </script>
+        @endif
+
         <!-- ---------------------- Salesman ------------------------ -->
         <div class="salesman">
             <div class="allSalesman">

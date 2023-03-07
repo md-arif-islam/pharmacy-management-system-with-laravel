@@ -12,6 +12,12 @@
 <!--------------------------------- Main section -------------------------------->
 <section class="main">
     <div class="container">
+
+        @if (session('success'))
+            <script>
+                toastr.success("{{ session('success') }}")
+            </script>
+        @endif
         <!-- ---------------------- Manager ------------------------ -->
         <div class="manager">
             <div class="allManager">
